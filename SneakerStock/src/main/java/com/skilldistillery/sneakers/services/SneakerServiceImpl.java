@@ -10,7 +10,7 @@ import com.skilldistillery.sneakers.repositories.SneakerRepository;
 
 @Service
 public class SneakerServiceImpl implements SneakerService {
-	
+
 	@Autowired
 	private SneakerRepository sneakerRepo;
 
@@ -46,7 +46,7 @@ public class SneakerServiceImpl implements SneakerService {
 			if (sneaker.getBrand() != null) {
 				managedSneaker.setBrand(sneaker.getBrand());
 			}
-			if(sneaker.getCondition() != null) {
+			if (sneaker.getCondition() != null) {
 				managedSneaker.setCondition(sneaker.getCondition());
 			}
 			sneakerRepo.saveAndFlush(managedSneaker);
@@ -56,8 +56,13 @@ public class SneakerServiceImpl implements SneakerService {
 
 	@Override
 	public boolean deleteSneaker(int sneakerId) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean deleted = false;
+		Sneaker sneakerToDelete = sneakerRepo.searchById(sneakerId);
+		if (sneakerToDelete != null) {
+			sneakerRepo.delete(sneakerToDelete);
+			deleted = true;
+		}
+		return deleted;
 	}
 
 }

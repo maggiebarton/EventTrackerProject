@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -67,6 +68,20 @@ public class SneakerController {
 			e.printStackTrace();
 		}
 		return updatedSneaker;
+	}
+
+	@DeleteMapping("sneakers/{sneakerId}")
+	public void deleteSneaker(@PathVariable int sneakerId, HttpServletResponse resp) {
+		try {
+			if (ss.deleteSneaker(sneakerId)) {
+				resp.setStatus(204);
+			} else {
+				resp.setStatus(404);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			resp.setStatus(400);
+		}
 	}
 
 }
