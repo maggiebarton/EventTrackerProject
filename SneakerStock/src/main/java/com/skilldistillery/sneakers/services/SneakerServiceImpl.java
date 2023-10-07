@@ -21,8 +21,7 @@ public class SneakerServiceImpl implements SneakerService {
 
 	@Override
 	public Sneaker showSingleSneaker(int sneakerId) {
-		// TODO Auto-generated method stub
-		return null;
+		return sneakerRepo.searchById(sneakerId);
 	}
 
 	@Override

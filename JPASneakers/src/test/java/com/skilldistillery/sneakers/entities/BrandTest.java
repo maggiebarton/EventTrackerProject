@@ -2,7 +2,7 @@ package com.skilldistillery.sneakers.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,11 +14,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class SneakerTest {
+class BrandTest {
 	
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Sneaker sneaker;
+	private Brand brand;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -33,34 +33,27 @@ class SneakerTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		sneaker = em.find(Sneaker.class, 1);
+		brand = em.find(Brand.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		sneaker = null;
+		brand = null;
 	}
 
 	@Test
 	void test_basic_mapping() {
-	assertNotNull(sneaker);
-	assertEquals("Boba Fett", sneaker.getName());
-	assertEquals(110, sneaker.getRetailPrice());
-	assertEquals(2020, sneaker.getReleaseDate().getYear());
-	assertEquals(8, sneaker.getSize());
+	assertNotNull(brand);
+	assertEquals("Nike", brand.getName());
+
 	}
 	
 	@Test
-	void test_MTO_Brand_mapping() {
-	assertNotNull(sneaker);
-	assertEquals("Adidas x Star Wars", sneaker.getBrand().getName());
-	}
-	
-	@Test
-	void test_MTO_Condition_mapping() {
-	assertNotNull(sneaker);
-	assertEquals("Used - Like New", sneaker.getCondition().getTitle());
+	void test_OTM_Sneaker_mapping() {
+	assertNotNull(brand);
+	assertTrue(brand.getSneakers().size() > 0);
+
 	}
 
 }

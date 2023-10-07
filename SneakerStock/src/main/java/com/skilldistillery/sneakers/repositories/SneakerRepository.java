@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.skilldistillery.sneakers.entities.Sneaker;
 
 public interface SneakerRepository extends JpaRepository<Sneaker, Integer> {
-
+	Sneaker searchById(int sneakerId);
 }
