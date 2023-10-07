@@ -32,8 +32,26 @@ public class SneakerServiceImpl implements SneakerService {
 
 	@Override
 	public Sneaker updateSneaker(int sneakerId, Sneaker sneaker) {
-		// TODO Auto-generated method stub
-		return null;
+		Sneaker managedSneaker = sneakerRepo.searchById(sneakerId);
+		if (managedSneaker != null) {
+			managedSneaker.setCollection(sneaker.getCollection());
+			managedSneaker.setName(sneaker.getName());
+			managedSneaker.setSize(sneaker.getSize());
+			managedSneaker.setRetailPrice(sneaker.getRetailPrice());
+			managedSneaker.setReleaseDate(sneaker.getReleaseDate());
+			managedSneaker.setAcquisitionDate(sneaker.getAcquisitionDate());
+			managedSneaker.setColorway(sneaker.getColorway());
+			managedSneaker.setBox(sneaker.isBox());
+			managedSneaker.setImageURL(sneaker.getImageURL());
+			if (sneaker.getBrand() != null) {
+				managedSneaker.setBrand(sneaker.getBrand());
+			}
+			if(sneaker.getCondition() != null) {
+				managedSneaker.setCondition(sneaker.getCondition());
+			}
+			sneakerRepo.saveAndFlush(managedSneaker);
+		}
+		return managedSneaker;
 	}
 
 	@Override

@@ -5,6 +5,8 @@
 	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
 		<!-- begin entities -->
+		<class>com.skilldistillery.sneakers.entities.Brand</class>
+		<class>com.skilldistillery.sneakers.entities.Condition</class>
 		<class>com.skilldistillery.sneakers.entities.Sneaker</class>
 		<!-- end entities -->
 

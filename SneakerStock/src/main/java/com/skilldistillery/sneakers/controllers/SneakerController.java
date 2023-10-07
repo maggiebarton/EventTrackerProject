@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,7 +37,7 @@ public class SneakerController {
 		}
 		return sneaker;
 	}
-	
+
 	@PostMapping("sneakers")
 	public Sneaker createNewSneaker(@RequestBody Sneaker sneaker, HttpServletResponse resp, HttpServletRequest req) {
 		Sneaker createdSneaker = null;
@@ -51,6 +52,21 @@ public class SneakerController {
 			resp.setStatus(400);
 		}
 		return createdSneaker;
+	}
+
+	@PutMapping("sneakers/{sneakerId}")
+	public Sneaker updateSneaker(@RequestBody Sneaker sneaker, @PathVariable int sneakerId, HttpServletResponse resp) {
+		Sneaker updatedSneaker = null;
+		try {
+			updatedSneaker = ss.updateSneaker(sneakerId, sneaker);
+			if (updatedSneaker == null) {
+				resp.setStatus(404);
+			}
+		} catch (Exception e) {
+			resp.setStatus(400);
+			e.printStackTrace();
+		}
+		return updatedSneaker;
 	}
 
 }
