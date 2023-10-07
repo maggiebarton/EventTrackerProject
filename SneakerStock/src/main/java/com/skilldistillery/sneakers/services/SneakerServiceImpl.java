@@ -26,8 +26,8 @@ public class SneakerServiceImpl implements SneakerService {
 
 	@Override
 	public Sneaker createNewSneaker(Sneaker sneaker) {
-		// TODO Auto-generated method stub
-		return null;
+		sneakerRepo.saveAndFlush(sneaker);
+		return sneaker;
 	}
 
 	@Override
