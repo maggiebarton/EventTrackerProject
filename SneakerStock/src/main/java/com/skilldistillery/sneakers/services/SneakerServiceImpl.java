@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.sneakers.entities.Brand;
 import com.skilldistillery.sneakers.entities.Sneaker;
+import com.skilldistillery.sneakers.repositories.BrandRepository;
 import com.skilldistillery.sneakers.repositories.SneakerRepository;
 
 @Service
@@ -13,6 +15,9 @@ public class SneakerServiceImpl implements SneakerService {
 
 	@Autowired
 	private SneakerRepository sneakerRepo;
+
+	@Autowired
+	private BrandRepository brandRepo;
 
 	@Override
 	public List<Sneaker> showAllSneakers() {
@@ -63,6 +68,16 @@ public class SneakerServiceImpl implements SneakerService {
 			deleted = true;
 		}
 		return deleted;
+	}
+
+	@Override
+	public List<Sneaker> showAllSneakersForSingleBrand(int brandId) {
+		List<Sneaker> sneakers = null;
+		Brand brand = brandRepo.searchById(brandId);
+		if (brand != null) {
+			sneakers = sneakerRepo.findByBrandId(brandId);
+		}
+		return sneakers;
 	}
 
 }

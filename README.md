@@ -12,6 +12,7 @@ The SneakerStock app helps keep track of a sneaker collection. Currently, the ap
 | PUT       | `/api/dives/{sneakerId}` | JSON for updating sneaker | JSON of updated sneaker | 200, 404, or 400 |
 | DELETE    | `/api/dives/{sneakerId}` |              | | 204, 404, or 400 |
 | GET       | `/api/brands`    |              | List of sneaker brands | 200   |
+| GET       | `/api/brands/{brandId}/sneakers`    |              | List of sneaker for specific brand | 200 or 404   |
 
 ## Technologies Used
 - SpringToolSuite/Spring/SpringBoot

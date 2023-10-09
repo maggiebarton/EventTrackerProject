@@ -83,5 +83,14 @@ public class SneakerController {
 			resp.setStatus(400);
 		}
 	}
+	
+	@GetMapping("brands/{brandId}/sneakers")
+	public List<Sneaker> getAllSneakersForSpecificBrand(@PathVariable int brandId, HttpServletResponse resp){
+		List<Sneaker> sneakers = ss.showAllSneakersForSingleBrand(brandId);
+		if(sneakers == null) {
+			resp.setStatus(404);
+		}
+		return sneakers;
+	}
 
 }

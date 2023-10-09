@@ -11,4 +11,5 @@ public interface SneakerService {
 	Sneaker createNewSneaker(Sneaker sneaker);
 	Sneaker updateSneaker(int sneakerId, Sneaker sneaker);
 	boolean deleteSneaker(int sneakerId);
+	List<Sneaker> showAllSneakersForSingleBrand(int brandId);
 }
