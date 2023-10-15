@@ -27,7 +27,7 @@ function init() {
 		let target = e.target.closest("#add");
 		if (target) {
 			e.preventDefault();
-			console.log('event listener working')
+			console.log('add event listener working')
 
 			let sneaker = {
 				collection: target.parentElement.collection.value,
@@ -51,6 +51,26 @@ function init() {
 		}
 	})
 
+	document.addEventListener('click', function(e) {
+		let target = e.target.closest("#updateSneaker");
+		if (target) {
+			e.preventDefault();
+			console.log('update event listener working')
+		}
+
+	})
+
+	document.addEventListener('click', function(e) {
+		let target = e.target.closest("#deleteSneaker");
+		if (target) {
+			console.log('delete event listener working')
+			let sneakerId = e.target.parentElement.previousElementSibling.firstElementChild.id;
+			console.log(sneakerId);
+			deleteSneaker(sneakerId);
+		}
+
+	})
+
 }
 
 function createSneaker(sneaker) {
@@ -64,7 +84,9 @@ function createSneaker(sneaker) {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 201) {
 				let createdSneaker = JSON.parse(xhr.responseText);
-				
+				let formDiv = document.getElementById('addSneakerFormDiv');
+				formDiv.textContent = "";
+				loadAllSneakers();
 			} else {
 				//TODO
 			}
@@ -72,6 +94,50 @@ function createSneaker(sneaker) {
 	}
 	let sneakerJson = JSON.stringify(sneaker);
 	xhr.send(sneakerJson);
+}
+
+function updateSneaker(sneaker) {
+	let xhr = new XMLHttpRequest();
+	xhr.open('PUT', 'api/sneakers/' + sneaker.id);
+
+	// specify JSON request body
+	xhr.setRequestHeader("Content-type", "application/json");
+
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 201) {
+				let updatedSneaker = JSON.parse(xhr.responseText);
+				let formDiv = document.getElementById('addSneakerFormDiv');
+				formDiv.textContent = "";
+				loadAllSneakers();
+			} else {
+				//TODO
+			}
+		}
+	}
+	let sneakerJson = JSON.stringify(sneaker);
+	xhr.send(sneakerJson);
+}
+
+function deleteSneaker(sneakerId) {
+	let xhr = new XMLHttpRequest();
+	xhr.open('DELETE', 'api/sneakers/' + sneakerId);
+
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 204) {
+				console.log('delete worked')
+				let sneakerDiv = document.getElementById('allSneakers');
+				sneakerDiv.textContent = "";
+				let formDiv = document.getElementById('addSneakerFormDiv');
+				formDiv.textContent = "";
+				loadAllSneakers();
+			} else {
+				//TODO
+			}
+		}
+	}
+	xhr.send();
 }
 
 
@@ -135,6 +201,8 @@ function displaySneakerList(sneakers) {
 		thadd.textContent = "Add to Collection";
 		let thfilter = document.createElement('th');
 		thfilter.textContent = "Filter By";
+		let thblank = document.createElement('th');
+		thfilter.textContent = "";
 
 		let tableBody = document.createElement('tbody');
 		div.append(table);
@@ -143,6 +211,7 @@ function displaySneakerList(sneakers) {
 		tableHead.appendChild(tr);
 		tr.appendChild(thadd);
 		tr.appendChild(thfilter);
+		tr.appendChild(thblank);
 
 
 		for (let sneaker of sneakers) {
@@ -167,17 +236,25 @@ function displaySneakerList(sneakers) {
 
 			td1.appendChild(img);
 			let td2 = document.createElement('td');
-			let details = sneaker.brand.name.toUpperCase() + " " + sneaker.collection.toUpperCase() + " '" + sneaker.name.toUpperCase() + "'" + "<br>" +
+			let details = "<div id=\"" + sneaker.id + "\">" +
+				sneaker.brand.name.toUpperCase() + " " + sneaker.collection.toUpperCase() + " '" + sneaker.name.toUpperCase() + "'" + "<br>" +
 				"Retail Price: $" + sneaker.retailPrice + "<br>" +
 				"Colorway: " + sneaker.colorway + "<br>" +
 				"Size: " + sneaker.size + "<br>" +
 				"Release Date: " + sneaker.releaseDate + "<br>" +
 				"Added to Collection: " + sneaker.acquisitionDate + "<br>" +
-				"Condition: " + sneaker.condition.title + "<br>" + boxCondition;
+				"Condition: " + sneaker.condition.title + "<br>" + boxCondition + "</div>";
 			td2.innerHTML = details;
+			let td3 = document.createElement('td');
+			td3.id = "td3 id";
+			let sneakerBtns = `<button id="updateSneaker" class="btn btn-outline-secondary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .90rem;">Update</button><br><br>
+								<button id="deleteSneaker" class="btn btn-outline-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .7rem; --bs-btn-font-size: .90rem;">Delete</button>`
+
+			td3.innerHTML = sneakerBtns;
 			tableBody.appendChild(tr);
 			tr.appendChild(td1);
 			tr.appendChild(td2);
+			tr.appendChild(td3);
 		}
 	}
 
