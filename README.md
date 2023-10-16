@@ -36,4 +36,4 @@ Using JavaScript to dynamically create elements makes sites extremely functional
 			deleteSneaker(sneakerId);
 		}
 
-	})```
+	})
