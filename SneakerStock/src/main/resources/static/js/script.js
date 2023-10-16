@@ -459,7 +459,6 @@ function displayUpdateSneakerForm(sneaker) {
 				</select> <br>
 				
 				
-				
 				<label for="condition">Condition:</label><br>
 				<select id="condition" name="condition">
 					<option value=1>New</option>
