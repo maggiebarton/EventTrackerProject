@@ -404,7 +404,7 @@ function displayAddSneakerForm() {
  					<option value=5>Used - Beat</option>
 				</select> <br>
 				
-				<button id="add">Add to Collection</button>
+				<button id="add" class="btn btn-secondary">Add to Collection</button>
 	
 		</form>`;
 	div.innerHTML = addForm;
