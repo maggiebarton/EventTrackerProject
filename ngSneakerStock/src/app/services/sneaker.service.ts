@@ -25,4 +25,42 @@ export class SneakerService {
       })
     );
   }
+
+  create(sneaker: Sneaker): Observable<Sneaker> {
+    console.log(sneaker)
+    return this.http.post<Sneaker>(this.url, sneaker).pipe(
+      catchError((err: any) => {
+        console.error(err);
+        return throwError(() => new Error('SneakerService.create(): error creating sneaker: ' + err));
+      })
+    );
+  }
+
+  update(id: number, sneaker: Sneaker): Observable<Sneaker> {
+    return this.http.put<Sneaker>(this.url + '/' + id, sneaker).pipe(
+      catchError((err: any) => {
+        console.error(err);
+        return throwError(() => new Error('SneakerService.update(): error updating sneaker: ' + err));
+      })
+    );
+  }
+
+  destroy(id: number): Observable<void> {
+    return this.http.delete<void>(this.url + '/' + id).pipe(
+      catchError((err: any) => {
+        console.error(err);
+        return throwError(() => new Error('SneakerService.destroy(): error deleting sneaker: ' + err));
+      })
+    );
+  }
+
+  show(id: number): Observable<Sneaker> {
+    return this.http.get<Sneaker>(this.url + '/' + id).pipe(
+      catchError((err: any) => {
+        console.error(err);
+        return throwError(() => new Error('SneakerService.show(): error getting sneaker: ' + err));
+      })
+    );
+  }
 }
+

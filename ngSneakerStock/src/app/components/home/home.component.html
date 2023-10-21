@@ -1,6 +1,29 @@
-<h1>SneakerStock</h1>
+<!-- <span class="align-middle">
+  <h1 class="text-center">SneakerStock</h1>
 
-<!-- FIXME -->
-<ul>
-  <li *ngFor="let sneaker of sneakers">{{sneaker.collection}}</li>
-</ul>
+  <div class="text-center">
+    <button class="btn btn-secondary mx-1 px-3">Show Collection</button>
+    <button class="btn btn-secondary mx-1 px-3">Add to Collection</button>
+  </div>
+</span> -->
+
+<div id="main" class="container-fluid">
+  <table class="table">
+    <tbody>
+      <tr>
+        <td class="align-middle text-center">
+          <h1 class="text-center">SneakerStock</h1>
+          <button
+            class="btn btn-outline-light btn-lg shadow"
+            [routerLink]="['/sneaker']"
+          >
+            <span>Show Collection</span>
+          </button>
+          <button class="btn btn-outline-light btn-lg mx-1 shadow">
+            <span>Add to Collection</span>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

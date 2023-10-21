@@ -1,3 +1,6 @@
+import { Brand } from "./brand";
+import { Condition } from "./condition";
+
 export class Sneaker {
   id: number;
   collection: string;
@@ -9,6 +12,8 @@ export class Sneaker {
   colorway: string;
   box: boolean;
   imageURL: string;
+  brand: Brand;
+  condition: Condition;
 
   constructor(
     id: number = 0,
@@ -20,7 +25,9 @@ export class Sneaker {
     acquisitionDate = '',
     colorway = '',
     box = false,
-    imageURL = ''
+    imageURL = '',
+    brand = new Brand(),
+    condition = new Condition()
   ){
     this.id = id;
     this.collection = collection;
@@ -32,5 +39,7 @@ export class Sneaker {
     this.colorway = colorway;
     this.box = box;
     this.imageURL = imageURL;
+    this.brand =  brand;
+    this.condition = condition;
   }
 }

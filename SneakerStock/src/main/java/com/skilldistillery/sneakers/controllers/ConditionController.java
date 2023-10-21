@@ -19,7 +19,7 @@ public class ConditionController {
 	@Autowired
 	private ConditionService cs;
 	
-	@GetMapping("conditions")
+	@GetMapping("sneakers/conditions")
 	public List<Condition> showAllConditions(){
 		return cs.showAllConditions();
 	}

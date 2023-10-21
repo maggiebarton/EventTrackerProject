@@ -7,25 +7,11 @@ import { SneakerService } from 'src/app/services/sneaker.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit {
-  sneakers: Sneaker[] = [];
-  selected: Sneaker | null = null;
+export class HomeComponent{
+  // newSneaker: Sneaker = new Sneaker();
 
-  constructor(private sneakerService: SneakerService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.loadSneakers();
-  }
 
-  loadSneakers() {
-    this.sneakerService.index().subscribe({
-      next: (sneakers) => {
-        this.sneakers = sneakers;
-      },
-      error: (oops) => {
-        console.error('HomeComponent.loadSneakers failed loading sneakers');
-        console.error(oops);
-      },
-    });
-  }
+
 }

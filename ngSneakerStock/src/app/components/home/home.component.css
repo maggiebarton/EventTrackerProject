@@ -1,0 +1,28 @@
+#main {
+  background-image: url(https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
+  background-size: cover;
+}
+
+table {
+  height: 105vh;
+}
+
+td,tr {
+  background: transparent;
+  border: transparent;
+}
+
+h1 {
+  font-size: 7vh;
+  color: white;
+  /* offset-x | offset-y | blur-radius | color */
+text-shadow: 2px 2px 5px black;
+}
+
+span {
+  text-shadow: 5px 5px 10px black;
+}
+
+span:hover {
+  text-shadow: none;
+}
