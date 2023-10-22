@@ -25,7 +25,7 @@
             </div>
             <div *ngIf="showConditions" class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
               <div class="btn-group me-2" role="group" aria-label="First group">
-                  <button type="button" class="btn btn-outline-secondary" *ngFor="let condition of conditions">{{condition.title}}</button>
+                  <button type="button" class="btn btn-outline-secondary" *ngFor="let condition of conditions" (click)="conditionTitle = condition.title">{{condition.title}}</button>
               </div>
             </div>
           </div>
@@ -33,7 +33,7 @@
         <th></th>
       </tr>
     </thead>
-    <tbody *ngFor="let sneaker of sneakers | brandName: brandName">
+    <tbody *ngFor="let sneaker of sneakers | brandName: brandName | conditionTitle: conditionTitle">
 
       <!-- IF NOT EDITNG ROW -->
 

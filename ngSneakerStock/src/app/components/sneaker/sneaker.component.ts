@@ -21,6 +21,7 @@ export class SneakerComponent implements OnInit{
   showBrands: boolean = false;
   showConditions: boolean = false;
   brandName: string = 'all';
+  conditionTitle: string = 'all';
 
   constructor(
     private sneakerService: SneakerService,
@@ -51,6 +52,7 @@ export class SneakerComponent implements OnInit{
         this.showBrands = false;
         this.showConditions = false;
         this.brandName = 'all';
+        this.conditionTitle = 'all';
       },
       error: (oops) => {
         console.error('SneakerComponent.loadSneakers failed loading sneakers');
