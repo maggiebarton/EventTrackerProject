@@ -2,8 +2,43 @@
   <table class="table">
     <thead>
       <tr>
-        <th class="align-middle"><h1 [routerLink]="['/home']">SneakerStats</h1></th>
+        <th class="align-middle">
+          <h1>
+            SneakerStats
+            <button class="btn btn-dark" [routerLink]="['/sneaker']">
+              View Collection
+            </button>
+          </h1>
+        </th>
         <th class="align-middle"></th>
-        <th></th>
+        <th class="align-middle"></th>
       </tr>
     </thead>
+  </table>
+  <div class="row">
+    <div class="col-4">
+      <div class="card text-center">
+        <div class="card-header">Total Sneakers in Collection</div>
+        <div class="card-body">
+          <h2 class="card-title">{{ totalCount }}</h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card text-center">
+        <div class="card-header">Most Popular Brand</div>
+        <div class="card-body">
+          <h2 class="card-title">{{ mostPopularBrand }}</h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card text-center">
+        <div class="card-header">Average Condition</div>
+        <div class="card-body">
+          <h2 class="card-title">{{ avgCondition }}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

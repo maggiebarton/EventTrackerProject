@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Brand } from 'src/app/models/brand';
 import { Condition } from 'src/app/models/condition';
 import { Sneaker } from 'src/app/models/sneaker';
@@ -22,11 +23,12 @@ export class SneakerComponent implements OnInit{
   showConditions: boolean = false;
   brandName: string = 'all';
   conditionTitle: string = 'all';
-
+  closeResult= '';
   constructor(
     private sneakerService: SneakerService,
     private brandService: BrandService,
-    private conditionService: ConditionService
+    private conditionService: ConditionService,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -136,4 +138,25 @@ export class SneakerComponent implements OnInit{
       },
     });
   }
+
+  open(content: any) {
+		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+			(result) => {
+				this.closeResult = `Closed with: ${result}`;
+			},
+			(reason) => {
+				this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+			},
+		);
+	}
+
+	private getDismissReason(reason: any): string {
+		if (reason === ModalDismissReasons.ESC) {
+			return 'by pressing ESC';
+		} else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+			return 'by clicking on a backdrop';
+		} else {
+			return `with: ${reason}`;
+		}
+	}
 }
