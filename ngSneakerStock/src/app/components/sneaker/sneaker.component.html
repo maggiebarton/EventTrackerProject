@@ -2,105 +2,334 @@
   <table class="table">
     <thead>
       <tr>
-        <th></th>
-        <th></th>
+        <th><h1>SneakerStock</h1></th>
+        <th class="align-middle">
+
+          <div class="row">
+            <div class="col">
+              <div ngbDropdown class="d-inline-block">
+                <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                  Filter By
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                  <button ngbDropdownItem>Brand</button>
+                  <button ngbDropdownItem>Condition</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </th>
         <th></th>
       </tr>
     </thead>
-    <tbody>
-      <tr *ngFor="let sneaker of sneakers">
-        <td class="align-middle" *ngIf="sneaker.id != 2 && sneaker.id != 9"><img [src]="sneaker.imageURL" /></td>
-        <td class="align-middle" *ngIf="sneaker.id === 2"><img src="assets/images/am90-custom.png" /></td>
-        <td class="align-middle" *ngIf="sneaker.id === 9"><img src="assets/images/jumpman-custom.png" /></td>
-        <td class="align-middle"><strong>{{sneaker.brand.name | uppercase}} {{sneaker.collection | uppercase}} '{{sneaker.name | uppercase}}'</strong><br>
-       <strong> Retail Price:</strong> {{sneaker.retailPrice | currency}} <br>
-       <strong> Colorway:</strong> {{sneaker.colorway}} <br>
-       <strong> Size:</strong> {{sneaker.size}} <br>
-       <strong> Release Date:</strong> {{sneaker.releaseDate | date:'mediumDate'}} <br>
-       <strong> Added to Collection:</strong> {{sneaker.acquisitionDate | date:'mediumDate'}} <br>
-       <strong> Condition:</strong> {{sneaker.condition.title}} <br>
+    <tbody *ngFor="let sneaker of sneakers">
+
+      <!-- IF NOT EDITNG ROW -->
+
+      <tr *ngIf="editSneaker.id != sneaker.id">
+        <td class="align-middle" *ngIf="sneaker.id != 2 && sneaker.id != 9">
+          <img [src]="sneaker.imageURL" />
+        </td>
+        <td class="align-middle" *ngIf="sneaker.id === 2">
+          <img src="assets/images/am90-custom.png" />
+        </td>
+        <td class="align-middle" *ngIf="sneaker.id === 9">
+          <img src="assets/images/jumpman-custom.png" />
         </td>
         <td class="align-middle">
-          <button class="btn btn-outline-secondary">Update</button>
-          <button class="btn btn-danger" (click)="deleteSneaker(sneaker.id)">Delete</button>
+          <strong>{{ sneaker.brand.name | uppercase }} {{ sneaker.collection | uppercase }}
+            '{{sneaker.name | uppercase}}'</strong><br>
+          <strong> Retail Price:</strong> {{ sneaker.retailPrice | currency }}<br>
+          <strong> Colorway:</strong> {{ sneaker.colorway }} <br>
+          <strong> Size:</strong> {{ sneaker.size }} <br>
+          <strong> Release Date:</strong> {{ sneaker.releaseDate | date : "mediumDate" }} <br>
+          <strong> Added to Collection:</strong> {{ sneaker.acquisitionDate | date : "mediumDate" }} <br>
+          <strong> Condition:</strong> {{ sneaker.condition.title }} <br />
+          <em *ngIf="sneaker.box">Has box</em>
+          <em *ngIf="!sneaker.box">Does not have box</em>
+        </td>
+        <td *ngIf="!selected" class="align-middle">
+          <button class="btn btn-outline-secondary mx-1"
+            (click)="setEdit(sneaker)">Update</button>
+          <button class="btn btn-danger mx-1"
+            (click)="deleteSneaker(sneaker.id)">Delete</button>
         </td>
       </tr>
+
+      <!-- IF EDITING ROW -->
+
+      <tr *ngIf="editSneaker.id === sneaker.id">
+        <td class="align-middle" *ngIf="sneaker.id != 2 && sneaker.id != 9">
+          <img [src]="sneaker.imageURL" />
+        </td>
+        <td class="align-middle" *ngIf="sneaker.id === 2">
+          <img src="assets/images/am90-custom.png" />
+        </td>
+        <td class="align-middle" *ngIf="sneaker.id === 9">
+          <img src="assets/images/jumpman-custom.png" />
+        </td>
+        <td class="align-middle">
+
+
+            <div class="row">
+              <div class="col">
+                <label for="collection">Collection</label>
+                <input
+                class="form-control form-control-sm"
+                type="text"
+                name="collection"
+                [(ngModel)]="editSneaker.collection"/>
+              </div>
+              <div class="col">
+                <label for="name">Name</label>
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  name="name"
+                  [(ngModel)]="editSneaker.name"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="size">Size</label>
+                <input
+                  class="form-control form-control-sm"
+                  type="number"
+                  name="size"
+                  [(ngModel)]="editSneaker.size"
+                />
+              </div>
+              <div class="col">
+                <label for="retailPrice">Retail Price</label>
+                <input
+                  class="form-control form-control-sm"
+                  type="number"
+                  name="retailPrice"
+                  [(ngModel)]="editSneaker.retailPrice"
+                />
+              </div>
+              <div class="col">
+                <label for="brand">Brand</label>
+                <select class="form-select form-select-sm" name="brand"
+                [(ngModel)]="editSneaker.brand.id">
+                 <option *ngFor="let brand of brands" name="brand" value="{{ brand.id }}">
+                    {{ brand.name }}
+                  </option>
+                </select>
+              </div>
+              <div class="col">
+                <label for="condition">Condition</label>
+                <select class="form-select form-select-sm" name="condition"
+                  [(ngModel)]="editSneaker.condition.id">
+                  <option *ngFor="let condition of conditions" name="condition" value="{{ condition.id }}">
+                    {{ condition.title }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <label for="imageURL">Image URL</label>
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  name="imageURL"
+                  [(ngModel)]="editSneaker.imageURL"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4">
+                <label for="colorway">Colorway</label>
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  name="colorway"
+                  [(ngModel)]="editSneaker.colorway"
+                />
+              </div>
+              <div class="col">
+                <label for="releaseDate">Release Date</label>
+                <input
+                  class="form-control form-control-sm"
+                  type="date"
+                  name="releaseDate"
+                  [(ngModel)]="editSneaker.releaseDate"
+                />
+              </div>
+              <div class="col">
+                <label for="acquisitionDate">Acquisition Date</label>
+                <input
+                  class="form-control form-control-sm"
+                  type="date"
+                  name="acquisitionDate"
+                  [(ngModel)]="editSneaker.acquisitionDate"
+                />
+              </div>
+              <div class="col form-check mt-4">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Has box?
+                </label>
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="flexCheckDefault"
+                  name="box"
+                  [(ngModel)]="editSneaker.box"
+                />
+              </div>
+            </div>
+        </td>
+        <td class="align-middle">
+          <button class="btn btn-outline-secondary mx-1"
+            (click)="updateSneaker(sneaker)">Update</button>
+          <button class="btn btn-danger mx-1"
+            (click)="deselectEdit(sneaker)">Cancel</button>
+        </td>
+      </tr>
+
+
+
     </tbody>
   </table>
 
+  <!-- ADD FORM -->
   <form class="form-control p-5">
-    <h1 class="text-center">Add to Collection</h1>
+    <h1 class="text-center mb-3">Add to Collection</h1>
     <div class="row">
       <div class="col">
         <label for="collection">Collection</label>
-        <input class="form-control mb-3" type="text" name="collection" placeholder="Example: Blazer Mid '77"
-        [(ngModel)]="newSneaker.collection"/>
+        <input
+          class="form-control mb-3"
+          type="text"
+          name="collection"
+          placeholder="Example: Blazer Mid '77"
+          [(ngModel)]="newSneaker.collection"
+        />
       </div>
       <div class="col">
         <label for="name">Name</label>
-        <input class="form-control mb-3" type="text" name="name" placeholder="Example: Indigo"
-        [(ngModel)]="newSneaker.name"/>
+        <input
+          class="form-control mb-3"
+          type="text"
+          name="name"
+          placeholder="Example: Indigo"
+          [(ngModel)]="newSneaker.name"
+        />
       </div>
     </div>
     <div class="row">
       <div class="col-4">
         <label for="size">Size</label>
-        <input class="form-control mb-3" type="number" name="size" [(ngModel)]="newSneaker.size"/>
+        <input
+          class="form-control mb-3"
+          type="number"
+          name="size"
+          [(ngModel)]="newSneaker.size"
+        />
       </div>
       <div class="col-4">
         <label for="retailPrice">Retail Price</label>
-        <input class="form-control mb-3" type="number" name="retailPrice" [(ngModel)]="newSneaker.retailPrice"/>
+        <input
+          class="form-control mb-3"
+          type="number"
+          name="retailPrice"
+          [(ngModel)]="newSneaker.retailPrice"
+        />
       </div>
       <div class="col-4">
         <label for="colorway">Colorway</label>
-        <input class="form-control mb-3" type="text" name="colorway" placeholder="Example: White/Obsidian/White/Obsidian"
-        [(ngModel)]="newSneaker.colorway"/>
+        <input
+          class="form-control mb-3"
+          type="text"
+          name="colorway"
+          placeholder="Example: White/Obsidian/White/Obsidian"
+          [(ngModel)]="newSneaker.colorway"
+        />
       </div>
     </div>
     <div class="row">
       <div class="col">
         <label for="brand">Brand</label>
-        <select class="form-select mb-3" name="brand" [(ngModel)]="newSneaker.brand.id">
-          <option *ngFor="let brand of brands" name="brand" value={{brand.id}}>{{brand.name}}</option>
+        <select
+          class="form-select mb-3"
+          name="brand"
+          [(ngModel)]="newSneaker.brand.id"
+        >
+          <option
+            *ngFor="let brand of brands"
+            name="brand"
+            value="{{ brand.id }}"
+          >
+            {{ brand.name }}
+          </option>
         </select>
       </div>
       <div class="col">
         <label for="condition">Condition</label>
-        <select class="form-select mb-3" name="condition" [(ngModel)]="newSneaker.condition.id">
-          <option *ngFor="let condition of conditions" name="condition" value={{condition.id}}>{{condition.title}}</option>
+        <select
+          class="form-select mb-3"
+          name="condition"
+          [(ngModel)]="newSneaker.condition.id"
+        >
+          <option
+            *ngFor="let condition of conditions"
+            name="condition"
+            value="{{ condition.id }}"
+          >
+            {{ condition.title }}
+          </option>
         </select>
       </div>
     </div>
     <div class="row">
       <div class="col">
         <label for="imageURL">Image URL</label>
-        <input class="form-control mb-3" type="text" name="imageURL" placeholder="Example: https://cdn.flightclub.com/2600/TEMPLATE/268244/1.jpg"
-        [(ngModel)]="newSneaker.imageURL"/>
+        <input
+          class="form-control mb-3"
+          type="text"
+          name="imageURL"
+          placeholder="Example: https://cdn.flightclub.com/2600/TEMPLATE/268244/1.jpg"
+          [(ngModel)]="newSneaker.imageURL"
+        />
       </div>
     </div>
     <div class="row">
       <div class="col-4">
         <label for="releaseDate">Release Date</label>
-        <input class="form-control mb-3" type="date" name="releaseDate" [(ngModel)]="newSneaker.releaseDate"/>
+        <input
+          class="form-control mb-3"
+          type="date"
+          name="releaseDate"
+          [(ngModel)]="newSneaker.releaseDate"
+        />
       </div>
       <div class="col-4">
         <label for="acquisitionDate">Acquisition Date</label>
-        <input class="form-control mb-3" type="date" name="acquisitionDate" [(ngModel)]="newSneaker.acquisitionDate"/>
+        <input
+          class="form-control mb-3"
+          type="date"
+          name="acquisitionDate"
+          [(ngModel)]="newSneaker.acquisitionDate"
+        />
       </div>
       <div class="col-4 form-check mt-4">
-        <label class="form-check-label" for="flexCheckDefault"> Has box? </label>
+        <label class="form-check-label" for="flexCheckDefault">
+          Has box?
+        </label>
         <input
-        class="form-check-input"
-        type="checkbox"
-        id="flexCheckDefault"
-        name="box"
-        [(ngModel)]="newSneaker.box"
-      />
+          class="form-check-input"
+          type="checkbox"
+          id="flexCheckDefault"
+          name="box"
+          [(ngModel)]="newSneaker.box"
+        />
       </div>
     </div>
-      <button class="btn btn-secondary btn-lg" (click)="addSneaker(newSneaker)">Add to Collection</button>
-
-
+    <button class="btn btn-secondary btn-lg" (click)="addSneaker(newSneaker)">
+      Add to Collection
+    </button>
   </form>
-
 </div>

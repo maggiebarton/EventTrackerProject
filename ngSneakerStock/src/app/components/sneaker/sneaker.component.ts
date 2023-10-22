@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Brand } from 'src/app/models/brand';
 import { Condition } from 'src/app/models/condition';
 import { Sneaker } from 'src/app/models/sneaker';
@@ -11,12 +11,14 @@ import { SneakerService } from 'src/app/services/sneaker.service';
   templateUrl: './sneaker.component.html',
   styleUrls: ['./sneaker.component.css'],
 })
-export class SneakerComponent {
+export class SneakerComponent implements OnInit{
   sneakers: Sneaker[] = [];
   brands: Brand[] = [];
   conditions: Condition[] = [];
-  selected: Sneaker | null = null;
+  editSneaker: Sneaker = new Sneaker();
+  selected: boolean = false;
   newSneaker: Sneaker = new Sneaker();
+  isCollapsed: boolean = false;
 
   constructor(
     private sneakerService: SneakerService,
@@ -66,6 +68,17 @@ export class SneakerComponent {
     });
   }
 
+  setEdit(sneaker: Sneaker) {
+    this.editSneaker = sneaker;
+    this.selected = true;
+    console.log(this.editSneaker)
+  }
+
+  deselectEdit(sneaker: Sneaker) {
+    this.editSneaker = new Sneaker();
+    this.selected = false;
+  }
+
   addSneaker(sneaker: Sneaker) {
     this.sneakerService.create(sneaker).subscribe({
       next: (sneaker) => {
@@ -88,6 +101,20 @@ export class SneakerComponent {
         console.error(
           'SneakerComponent.deleteSneaker(): error deleting sneaker'
         );
+        console.error(oops);
+      },
+    });
+  }
+
+  updateSneaker(sneaker: Sneaker) {
+    this.sneakerService.update(sneaker.id, sneaker).subscribe({
+      next: (updatedSneaker) => {
+        this.editSneaker = new Sneaker();
+        this.selected = false;
+        this.loadSneakers;
+      },
+      error: (oops) => {
+        console.error('SneakerComponent.updateSneaker(): error updating sneaker');
         console.error(oops);
       },
     });
