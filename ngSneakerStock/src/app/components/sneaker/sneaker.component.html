@@ -2,19 +2,30 @@
   <table class="table">
     <thead>
       <tr>
-        <th><h1>SneakerStock</h1></th>
+        <th class="align-middle"><h1 [routerLink]="['/home']">SneakerStock</h1></th>
         <th class="align-middle">
 
           <div class="row">
             <div class="col">
               <div ngbDropdown class="d-inline-block">
-                <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                <button type="button" class="btn btn-outline-secondary mb-1" id="dropdownBasic1" ngbDropdownToggle>
                   Filter By
                 </button>
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                  <button ngbDropdownItem>Brand</button>
-                  <button ngbDropdownItem>Condition</button>
+                  <button ngbDropdownItem (click)="showBrandList()">Brand</button>
+                  <button ngbDropdownItem (click)="showConditionList()">Condition</button>
+                  <button ngbDropdownItem (click)="loadSneakers()">Show All</button>
                 </div>
+              </div>
+            </div>
+            <div *ngIf="showBrands" class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+              <div class="btn-group me-2" role="group" aria-label="First group">
+                  <button type="button" class="btn btn-outline-secondary" *ngFor="let brand of brands" (click)="brandName = brand.name">{{brand.name}}</button>
+              </div>
+            </div>
+            <div *ngIf="showConditions" class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+              <div class="btn-group me-2" role="group" aria-label="First group">
+                  <button type="button" class="btn btn-outline-secondary" *ngFor="let condition of conditions">{{condition.title}}</button>
               </div>
             </div>
           </div>
@@ -22,7 +33,7 @@
         <th></th>
       </tr>
     </thead>
-    <tbody *ngFor="let sneaker of sneakers">
+    <tbody *ngFor="let sneaker of sneakers | brandName: brandName">
 
       <!-- IF NOT EDITNG ROW -->
 

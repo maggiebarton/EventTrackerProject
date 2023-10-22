@@ -10,13 +10,17 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SneakerComponent } from './components/sneaker/sneaker.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { DatePipe } from '@angular/common';
+import { BrandNamePipe } from './pipes/brand-name.pipe';
+import { ConditionTitlePipe } from './pipes/condition-title.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     SneakerComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    BrandNamePipe,
+    ConditionTitlePipe
   ],
   imports: [
     BrowserModule,

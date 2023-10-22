@@ -18,7 +18,9 @@ export class SneakerComponent implements OnInit{
   editSneaker: Sneaker = new Sneaker();
   selected: boolean = false;
   newSneaker: Sneaker = new Sneaker();
-  isCollapsed: boolean = false;
+  showBrands: boolean = false;
+  showConditions: boolean = false;
+  brandName: string = 'all';
 
   constructor(
     private sneakerService: SneakerService,
@@ -32,10 +34,23 @@ export class SneakerComponent implements OnInit{
     this.loadConditions();
   }
 
+  showBrandList() {
+    this.showBrands = true;
+    this.showConditions = false;
+  }
+
+  showConditionList() {
+    this.showBrands = false;
+    this.showConditions = true;
+  }
+
   loadSneakers() {
     this.sneakerService.index().subscribe({
       next: (sneakers) => {
         this.sneakers = sneakers;
+        this.showBrands = false;
+        this.showConditions = false;
+        this.brandName = 'all';
       },
       error: (oops) => {
         console.error('SneakerComponent.loadSneakers failed loading sneakers');
