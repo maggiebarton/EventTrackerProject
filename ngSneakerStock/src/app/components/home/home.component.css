@@ -4,7 +4,7 @@
 }
 
 table {
-  height: 105vh;
+  height: 100vh;
 }
 
 td,tr {
@@ -13,7 +13,7 @@ td,tr {
 }
 
 h1 {
-  font-size: 7vh;
+  font-size: 10vh;
   color: white;
   /* offset-x | offset-y | blur-radius | color */
 text-shadow: 2px 2px 5px black;

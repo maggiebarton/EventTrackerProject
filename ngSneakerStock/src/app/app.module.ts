@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
@@ -12,6 +11,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { DatePipe } from '@angular/common';
 import { BrandNamePipe } from './pipes/brand-name.pipe';
 import { ConditionTitlePipe } from './pipes/condition-title.pipe';
+import { DashComponent } from './components/dash/dash.component';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { ConditionTitlePipe } from './pipes/condition-title.pipe';
     SneakerComponent,
     NotFoundComponent,
     BrandNamePipe,
-    ConditionTitlePipe
+    ConditionTitlePipe,
+    DashComponent,
+
   ],
   imports: [
     BrowserModule,

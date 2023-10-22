@@ -2,11 +2,9 @@
   <table class="table">
     <thead>
       <tr>
-        <th class="align-middle"><h1 [routerLink]="['/home']">SneakerStock</h1></th>
-        <th class="align-middle">
-
-          <div class="row">
-            <div class="col">
+        <th class="align-middle"><h1>SneakerStock
+          <!-- <div class="row">
+            <div class="col"> -->
               <div ngbDropdown class="d-inline-block">
                 <button type="button" class="btn btn-outline-secondary mb-1" id="dropdownBasic1" ngbDropdownToggle>
                   Filter By
@@ -17,20 +15,27 @@
                   <button ngbDropdownItem (click)="loadSneakers()">Show All</button>
                 </div>
               </div>
-            </div>
-            <div *ngIf="showBrands" class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+              </h1>
+            <!-- </div>
+            </div> -->
+
+
+        </th>
+        <th class="align-middle">
+
+            <div *ngIf="showBrands" class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
               <div class="btn-group me-2" role="group" aria-label="First group">
                   <button type="button" class="btn btn-outline-secondary" *ngFor="let brand of brands" (click)="brandName = brand.name">{{brand.name}}</button>
               </div>
             </div>
-            <div *ngIf="showConditions" class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+            <div *ngIf="showConditions" class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
               <div class="btn-group me-2" role="group" aria-label="First group">
                   <button type="button" class="btn btn-outline-secondary" *ngFor="let condition of conditions" (click)="conditionTitle = condition.title">{{condition.title}}</button>
               </div>
             </div>
-          </div>
+
         </th>
-        <th></th>
+        <th class="align-middle"><button class="btn btn-dark" [routerLink]="['/dashboard']">View SneakerStats</button></th>
       </tr>
     </thead>
     <tbody *ngFor="let sneaker of sneakers | brandName: brandName | conditionTitle: conditionTitle">
