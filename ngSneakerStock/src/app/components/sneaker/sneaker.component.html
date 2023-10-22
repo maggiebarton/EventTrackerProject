@@ -220,7 +220,6 @@
 		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
 	</div>
 	<div class="modal-body">
-		<form class="form-control">
        <div class="row">
          <div class="col">
            <label for="collection">Collection</label>
@@ -268,7 +267,7 @@
              class="form-control mb-3"
              type="text"
              name="colorway"
-             placeholder="Example: White/Obsidian/White/Obsidian"
+             placeholder="Example: White/Obsidian"
              [(ngModel)]="newSneaker.colorway"
            />
          </div>
@@ -351,7 +350,6 @@
            />
          </div>
        </div>
-     </form>
 	</div>
 	<div class="modal-footer">
 		<button type="button" class="btn btn-outline-dark" (click)="modal.close(addSneaker(newSneaker))">Add to Collection</button>
