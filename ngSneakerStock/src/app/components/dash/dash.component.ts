@@ -31,6 +31,7 @@ export class DashComponent implements OnInit {
         this.totalCount = sneakers.length;
         this.findMostPopularBrand(sneakers);
         this.findAvgCondition(sneakers);
+        this.findAvgRetailPrice(sneakers);
       },
       error: (oops) => {
         console.error('DashComponent.loadSneakers failed loading sneakers');
