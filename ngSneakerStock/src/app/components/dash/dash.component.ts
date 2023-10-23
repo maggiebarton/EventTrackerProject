@@ -1,8 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { map } from 'rxjs/operators';
-import { BrandService } from 'src/app/services/brand.service';
-import { ConditionService } from 'src/app/services/condition.service';
+import { Component, OnInit } from '@angular/core';
 import { SneakerService } from 'src/app/services/sneaker.service';
 import { Brand } from 'src/app/models/brand';
 import { Condition } from 'src/app/models/condition';
@@ -20,6 +16,7 @@ export class DashComponent implements OnInit {
   totalCount: number = 0;
   mostPopularBrand: string = '';
   avgCondition: string = '';
+  avgRetailPrice: number = 0;
 
   constructor(private sneakerService: SneakerService) {}
 
@@ -72,6 +69,15 @@ export class DashComponent implements OnInit {
         this.avgCondition = sneakers[i].condition.title;
       }
     }
+  }
+
+  findAvgRetailPrice(sneakers: Sneaker []){
+    let total = 0;
+    for (let i = 0; i < sneakers.length; i++){
+      total += sneakers[i].retailPrice;
+    }
+    console.log(total)
+    this.avgRetailPrice =  (total / sneakers.length);
   }
 
 }
