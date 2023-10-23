@@ -17,6 +17,7 @@ export class DashComponent implements OnInit {
   mostPopularBrand: string = '';
   avgCondition: string = '';
   avgRetailPrice: number = 0;
+  netWorth: number = 0;
 
   constructor(private sneakerService: SneakerService) {}
 
@@ -32,6 +33,7 @@ export class DashComponent implements OnInit {
         this.findMostPopularBrand(sneakers);
         this.findAvgCondition(sneakers);
         this.findAvgRetailPrice(sneakers);
+        this.findCollectionNetWorth(sneakers);
       },
       error: (oops) => {
         console.error('DashComponent.loadSneakers failed loading sneakers');
@@ -79,6 +81,14 @@ export class DashComponent implements OnInit {
     }
     console.log(total)
     this.avgRetailPrice =  (total / sneakers.length);
+  }
+
+  findCollectionNetWorth(sneakers: Sneaker []){
+    let total = 0;
+    for (let i = 0; i < sneakers.length; i++){
+      total += sneakers[i].retailPrice;
+    }
+    this.netWorth =  total;
   }
 
 }

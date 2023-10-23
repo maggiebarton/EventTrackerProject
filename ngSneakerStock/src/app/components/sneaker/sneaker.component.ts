@@ -130,7 +130,7 @@ export class SneakerComponent implements OnInit{
       next: (updatedSneaker) => {
         this.editSneaker = new Sneaker();
         this.selected = false;
-        this.loadSneakers;
+        this.loadSneakers();
       },
       error: (oops) => {
         console.error('SneakerComponent.updateSneaker(): error updating sneaker');
