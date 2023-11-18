@@ -1,5 +1,6 @@
 package com.skilldistillery.sneakers.controllers;
 
+import io.github.pixee.security.Newlines;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -49,7 +50,7 @@ public class SneakerController {
 			resp.setStatus(201);
 			StringBuffer url = req.getRequestURL();
 			url.append("/").append(createdSneaker.getId());
-			resp.setHeader("Location", url.toString());
+			resp.setHeader("Location", Newlines.stripAll(url.toString()));
 		} catch (Exception e) {
 			e.printStackTrace();
 			resp.setStatus(400);
