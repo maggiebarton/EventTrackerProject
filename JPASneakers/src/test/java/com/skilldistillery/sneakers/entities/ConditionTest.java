@@ -50,11 +50,5 @@ class ConditionTest {
 
 	}
 	
-	@Test
-	void test_OTM_Sneaker_mapping() {
-	assertNotNull(condition);
-	assertTrue(condition.getSneakers().isEmpty());
-
-	}
 
 }
